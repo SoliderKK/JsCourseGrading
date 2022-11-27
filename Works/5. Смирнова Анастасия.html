@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <title>Smirnova_A_DemoDay</title>
+     <meta charset="utf-8">
+   </head>
+   <body>
+     <script>
+       'use strict'
+      let matrixP = +prompt('Введите кол-во столбцов матрицы P');
+      let m = matrixP; //количество столбцов матрицы P
+      let x = []; //полученная матрица P
+    
+      if (matrixP <= 0) {
+        console.log('Ошибка! Ввод отрицательного числа');
+      } else if (isNaN(matrixP)) {
+        console.log('Ошибка! Введите число');
+      } else if (matrixP === null ) {
+        console.log('Ошибка! Вы ничего не ввели');
+      } else {
+
+        //заполняем матрицу случайными числами, где
+        //количество строк в 2 раза больше, чем столбцов
+        for (let i = 0; i < (2 * m); i++) {
+          x[i] = []; //объявляем каждый элемент массива самостоятельным массивом
+            for (let j = 0; j < m; j++) {
+              x[i].push(Math.floor(Math.random(j) * (9-0) + 2));
+            }
+        }
+
+        // определяем в какой из половин матрицы (верхней / нижней) 
+        // произведение всех элементов больше, чем в другой.   
+        let upperHalf = []; //массив элементов верхней части
+        let lowerHalf = []; //массив элементов нижней части       
+
+        //выводим элементы верхней части матрицы P в массив
+        for (let i = 0; i < (x.length / 2); i++) {
+          for (let j = 0; j < x[i].length; j++) upperHalf.push(x[i][j]);
+        }
+
+        //выводим элементы нижней части матрицы P в массив
+        for (let i = (x.length / 2); i < x.length; i++) {
+          for (let j = 0; j < x[i].length; j++) lowerHalf.push(x[i][j]);          
+        }
+        //считаем произведение верхней части матрицы P
+        let productUpperHalf = 1;
+
+        for (let i = 0; i < upperHalf.length; i++) {
+          productUpperHalf *= upperHalf[i];
+        }
+
+        //считаем произведение нижней части матрицы P
+        let productBottom = 1;
+
+        for (let i = 0; i < lowerHalf.length; i++) {
+          productBottom *= lowerHalf[i];
+        }
+
+        if (productUpperHalf > productBottom) {
+          //console.log('Произведение верхней части матрицы больше ' +
+          //            'произведения нижней части матрицы');
+        } else if (productUpperHalf < productBottom) {
+          //console.log('Произведение нижней части матрицы больше ' +
+          //            'произведения верхней части матрицы');
+        } else; //console.log('Произведения верхней и нижней частей матрицы ' +
+           //                'равны');
+
+        //считаем разность соответствующих элементов половин матрицы
+        let p0 = []; 
+
+        for (let i = 0; i < upperHalf.length; i++) {
+          p0[i] = (upperHalf[i] - lowerHalf[i]);
+        }
+
+        //переводим массив р0 в матрицу Р
+        let p = []; 
+        let c = 0;
+
+        for (let i = 0; i < Math.sqrt(p0.length); i++) {
+          p[i] = [];
+            for (let j = 0; j < Math.sqrt(p0.length); j++) {
+            p[i][j] = p0[c];
+            c += 1;
+            } 
+        }
+        console.log('Матрица Q');
+        console.log(p);
+
+        //выводим элементы матрицы Q в массив
+        let s0 = [];
+
+        for (let i = 0; i < p.length; i++) {
+          for (let j = 0; j < p[i].length; j++) s0.push(p[i][j]);          
+        }
+
+        //располагаем элементы матрицы Q в порядке убывания, получаем матрицу S
+        for (let i = 1; i < s0.length; i++) {
+          let elementValue = s0[i];
+          let elementValueIndex = i;
+          let newElementValueIndex;
+
+          for (let j = 0; j < elementValueIndex; j++) {
+            if (elementValue > s0[j]) {
+              newElementValueIndex = j;
+              break;
+            }
+          }
+
+          if (newElementValueIndex == undefined) {
+           newElementValueIndex = elementValueIndex;
+          }
+
+          for (let j = elementValueIndex; j > newElementValueIndex; j--) {
+            s0[j] = s0[j-1];
+          }
+
+          s0[newElementValueIndex] = elementValue;
+        }
+
+        //выводим элементы массива s0 в матрицу S
+        let s = []; 
+        let k = 0;
+
+        for (let i = 0; i < (Math.sqrt(s0.length)); i++) {
+          s[i] = [];
+            for (let j = 0; j < Math.sqrt(s0.length); j++) {
+            s[i][j] = s0[k];
+            k += 1;
+            } 
+        }
+
+        console.log('Матрица S');
+        console.log(s);     
+      }
+       </script>
+   </body>
+</html>

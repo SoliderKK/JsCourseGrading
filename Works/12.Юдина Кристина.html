@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Alternative task</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+		'use strict'
+
+    let m = prompt('Введите значение строки M');
+    let n = prompt('Введите значение столбца N');
+    let l = prompt('Введите значение столбца L');
+
+  
+    let c = [[m][n]]; 
+    let d = [[m][l]];
+    let e = [].concat(d);
+
+    console.log(c);
+    console.log(d);
+
+    let elementsE;
+
+    let m0; 
+    let n0; 
+    let l0; 
+    let lineSumC = 0;
+    let sum = [];
+
+    // Поиск суммы чисел по строкам в массиве C
+
+    for (m0 = 0; m0 < m; m0++) {    
+      for (n0 = 0; n0 < n; n0++) {
+        let number = c[m0][n0];
+        lineSumC += number;
+      }
+      sum.push(lineSumC);
+      lineSumC = 0;  
+    }
+
+    // Получение результативной матрицы E
+  
+    for (m0 = 0; m0 < m; m0++) {
+      for (l0 = 0; l0 < l; l0++){
+        e[m0][l0] = d[m0][l0] - sum[m0];
+      }
+    }
+       
+    
+    // Сортировка элементов матрицы E по возрастанию
+
+    elementsE = e[0].concat(e[1]);
+
+    for (let i = 1; i < elementsE.length; i++) {
+      let x = elementsE[i];
+      let leftBorder = 0;
+      let rightBorder = i - 1;
+            while(!(leftBorder > rightBorder)) {
+              let m = Math.floor((leftBorder + rightBorder) / 2);
+              if (x < elementsE[m]) rightBorder = m - 1;
+              else leftBorder = m + 1;
+            }
+
+            for (let j = i - 1; j >= leftBorder; j--) {
+              elementsE[j+1] = elementsE[j];
+            }
+
+            elementsE[leftBorder] = x;
+          }
+
+    // Вывод ответов
+
+    console.log(e);
+    console.log(elementsE);
+        
+
+
+    </script>
+  </body>
+</html>

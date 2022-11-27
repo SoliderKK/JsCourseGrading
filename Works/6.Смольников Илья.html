@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>case_21</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <script>
+      "use strict";
+
+      let x = [];
+      let w;
+      let h;
+      let m;
+
+      while (true) {
+        w = prompt("Запишите кол-во строк");
+
+        if (w == null) {
+          console.log("Программа прекратила работу");
+          break;
+        }
+
+        w = +w;
+        h = 2 * w;
+        m = Math.floor(h / 2);
+
+        if (w != w) {
+          console.log("Ошибка, введитечисло");
+          continue;
+        }
+
+        alert(`Колличество столбцов задаются автоматически и равны: ${h}`);
+
+        for (let i = 0; i < w; i++) {
+          x[i] = [];
+
+          for (let j = 0; j < h; j++) {
+            x[i][j] = Math.round(Math.random() * (9000 - 1) * 1);
+            x[i][j] = Number(x[i][j]);
+          }
+        }
+        //console.log(x);
+
+        let sumLt = 0;
+        let sumRt = 0;
+
+        for (let i = 0; i < w; i++) {
+          for (let j = 0; j < m; j++) {
+            sumLt += x[i][j];
+          }
+        }
+
+        for (let i = 0; i < w; i++) {
+          for (let j = m; j < h; j++) {
+            sumRt += x[i][j];
+          }
+        }
+
+        if (sumLt > sumRt) {
+          console.log(`Сумма левой части больше и равна: ${sumLt}`);
+        } else if (sumLt < sumRt) {
+          console.log(`Сумма правой части больше и равна: ${sumRt}`);
+        } else {
+          console.log(`Суммы равны: ${sumLt}`);
+        }
+
+        let y = [];
+        let zz = [];
+        h = w;
+
+        for (let i = 0; i < w; i++) {
+          y[i] = [];
+          for (let j = 0; j < h; j++) {
+            y[i][j] = x[i][j] + x[i][j + h];
+          }
+        }
+
+        console.log("вывод матрицы y");
+        for (let i = 0; i < w; i++) {
+          console.log(y[i]);
+        }
+
+        let z = y;
+
+        for (let i = 0; i < w; i++) {
+          zz[i] = y[w - 1 - i][i];
+        }
+
+        let lt;
+        let rt;
+        let n;
+
+        for (let i = 1; i < zz.length; i++) {
+          n = zz[i];
+
+          lt = 0;
+
+          rt = i - 1;
+
+          while (lt <= rt) {
+            m = Math.floor((lt + rt) / 2);
+            if (n > zz[m]) rt = m - 1;
+            else lt = m + 1;
+          }
+
+          for (let j = i - 1; j >= lt; j--) {
+            zz[j + 1] = zz[j];
+          }
+
+          zz[lt] = n;
+        }
+
+        for (let i = 0; i < w; i++) {
+          z[w - 1 - i][i] = zz[i];
+        }
+
+        console.log("вывод матрицы z");
+        for (let i = 0; i < w; i++) {
+          console.log(z[i]);
+        }
+        break;
+      }
+    </script>
+  </body>
+</html>

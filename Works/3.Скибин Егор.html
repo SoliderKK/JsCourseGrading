@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <title>Demo Day</title>
+     <meta charset="utf-8">
+   </head>
+   <body>
+     <script>
+       'use strict' // используем строгий режим
+      let matrix1 = +prompt("Введите кол-во строк матрицы X");
+      let matrix2 = +prompt("Введите кол-во столбцов матрицы X");
+      let matrix3 = +prompt("Введите кол-во строк матрицы Y");
+      let m = matrix1;
+      let n = matrix2;
+      let k = matrix3;  
+      let x = [];
+      let y = [];
+      let xx = [];
+      let z = [];
+      
+
+      if (matrix1 <= 0 || matrix2 <= 0 || matrix3 <= 0) {
+        console.log("Можно вводить только положительные значения!");
+      } else if (isNaN(matrix1) || isNaN(matrix2) || isNaN(matrix3)) {
+        console.log("Вы ввели не число!");
+      } else if (matrix1 === null || matrix2 === null || matrix3 === null) {
+        console.log("Вы ничего не ввели!");
+      } else {
+
+        for (let i = 0; i < m; i++) {
+          x[i] = [];  //объявляем каждый элемент массива самостоятельным массивом
+            for (let j = 0; j < n; j++) {
+              x[i].push(Math.floor(9 * Math.random(j)+1));
+            }
+        }
+
+        for (let i = 0; i < k; i++) {
+          y[i] = [];  //объявляем каждый элемент массива самостоятельным массивом
+            for (let j = 0; j < m; j++) {
+              y[i].push(Math.floor(9 * Math.random(j)+1));
+            }
+        }          
+
+        let decreasingX = [];       
+
+        //выводим все элементы матрицы x в массив
+        for (let i = 0; i < x.length; i++) {
+          for (let j = 0; j < x[i].length; j++) decreasingX.push(x[i][j]);
+        }
+           
+        //ранжируем элементы главной диагонали матрицы X по убыванию
+        for (let i = 1; i < decreasingX.length; i++) {
+          let elementValue = decreasingX[i];
+          let elementValueIndex = i;
+          let newElementValueIndex;
+
+          for (let j = 0; j < elementValueIndex; j++) {
+            if (elementValue > decreasingX[j]) {
+              newElementValueIndex = j;
+              break;
+            }
+          }
+
+          if (newElementValueIndex == undefined) {
+           newElementValueIndex = elementValueIndex;
+          }
+
+          for (let j = elementValueIndex; j > newElementValueIndex; j--) {
+            decreasingX[j] = decreasingX[j-1];
+          }
+
+          decreasingX[newElementValueIndex] = elementValue;
+        }
+
+            
+        // располагаем все элементы матрицы X в порядке убывания 
+        let c = 0;
+
+        for (let i = 0; i < x.length; i++) {
+          xx[i] = [];
+          for (let j = 0; j < x[i].length; j++) {
+            xx[i][j] = decreasingX[c];
+            c += 1;            
+          } 
+        }                
+
+              
+        //считаем сумму каждого столбца матрицы Y
+        let sumСolumnsY = [];
+        let sumСolumns = 0;
+
+    
+        for (let i = 0; i < y[i].length; i++) {      
+          for (let j = 0; j < y.length; j++) {
+            sumСolumns += y[j][i];    
+          } 
+          sumСolumnsY.push(sumСolumns);
+          sumСolumns = 0;          
+        }
+
+        
+        //складываем из каждого элемента каждой строки матрицы XX сумму
+        //элементов соответствующего столбца матрицы Y
+        for (let i = 0; i < xx.length; i++) {
+          z[i] = [];
+          for (let j = 0; j < xx[i].length; j++) {
+            z[i][j] = (xx[i][j] + sumСolumnsY[i]);
+          }
+        }
+
+        console.log(xx);
+        console.log(z);      
+      }
+       </script>
+   </body>
+</html>

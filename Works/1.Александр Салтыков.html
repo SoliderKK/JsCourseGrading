@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dima day</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script>
+			'use strict'
+            let m, n, min, max;
+             m = 8;
+             n = 8; 
+             min = 0; 
+             max = 100;
+            const arrayP = [];
+            for (let i = 0; i < m; i++) {
+                arrayP[i] = []; 
+                for (let j = 0; j < n; j++) {
+                arrayP[i][j] = parseInt(min + Math.random()*(max - min + 1));
+                };
+            };const arrayQ = [];
+            for (let i = 0; i < m; i++) {
+                arrayQ[i] = []; 
+                for (let j = 0; j < n; j++) {
+                arrayQ[i][j] = parseInt(min + Math.random()*(max - min + 1));
+                };
+            };const calculationArrayQQ = (arrQ) => {
+                let arrayQQ = [];
+                for(let i = 0;i < arrQ.length; i++){
+                arrayQQ.push(arrQ[i].sort((a,b) => a - b))
+                };console.log(arrayQQ)
+                return arrayQQ
+            };const arrayQQ = calculationArrayQQ(arrayQ)
+            const calculationArrayPP = (arrP) => {
+                const arr = [];
+                let num = 0;
+                for(let i = 0; i < arrP.length;i++){
+                    for(let j = 0; j < arrP[i].length; j++){
+                    if(j >= arrP[i].length - 1){
+                        arr.push(num + arrP[j][i])
+                        num = 0
+                    } else{
+                        num += arrP[j][i]
+                      }
+                    }
+                }return arr
+            };const arrayPP = calculationArrayPP(arrayP)
+            const arrayS = (arrQQ, arrPP) => {
+                const arrS = []
+                for (let i = 0; i < arrQQ.length; i++){
+                for (let j = 0; j < arrQQ[i].length; j++){
+                    if(arrS.length < arrQQ.length){
+                    arrS.push([arrQQ[i][j] - arrPP[j]])
+                    }
+                    else{
+                    arrS[j].push(arrQQ[i][j] - arrPP[j])
+                    }
+                  }
+                }return arrS
+            }
+            console.log(arrayS(arrayQQ, arrayPP))
+		</script>
+	</body>
+</html>

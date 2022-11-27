@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <title>Demo Day</title>
+     <meta charset="utf-8">
+   </head>
+   <body>
+     <script>
+       'use strict' // используем строгий режим
+      let matrix1 = +prompt("Введите кол-во строк квадратной матрицы V1," +
+        " число должно быть четное!");
+      let matrix2 = +prompt("Введите кол-во строк квадратной матрицы V2," +
+        " число должно быть четное!");
+      let m = matrix1;
+      let n = matrix2;  
+      let v1 = [];
+      let v2 = [];
+      let v3 = [];
+      let v4 = [];
+      let v5 = [];
+      let v6 = [];
+
+
+      if (matrix1 <= 0 || matrix2 <= 0) {
+        console.log("Можно вводить только положительные значения!");
+      } else if (isNaN(matrix1) || isNaN(matrix2)) {
+        console.log("Вы ввели не число!");
+      } else if (matrix1 === null || matrix2 === null) {
+        console.log("Вы ничего не ввели!");
+      } else if  (matrix1 % 2 != 0 || matrix2 % 2 != 0 ) {
+        console.log("Можно вводить только четные числа!");
+      } else {
+
+        for (let i = 0; i < m; i++) {
+          v1[i] = [];  //объявляем каждый элемент массива самостоятельным массивом
+            for (let j = 0; j < m; j++) {
+              v1[i].push(Math.floor(9 * Math.random(j)+1));
+            }
+        }
+
+        for (let i = 0; i < n; i++) {
+          v2[i] = [];  //объявляем каждый элемент массива самостоятельным массивом
+            for (let j = 0; j < n; j++) {
+              v2[i].push(Math.floor(9 * Math.random(j)+1));
+            }
+        }          
+
+        let diagonalV1 = [];
+        let diagonalV2 = [];
+
+        //выводим элементы главной диагонали матрицы v1 в массив
+        for (let i = 0; i < v1.length; i++) {
+          for (let j = 0; j < v1[i].length; j++) {
+            if (j == i) diagonalV1.push(v1[i][j]);
+          }
+        }
+
+        //выводим элементы главной диагонали матрицы v1 в массив
+        for (let i = 0; i < v2.length; i++) {
+          for (let j = 0; j < v2[i].length; j++) {
+            if (j == i) diagonalV2.push(v2[i][j]);
+          }
+        }
+
+        //ранжируем элементы главной диагонали матрицы v1 по убыванию
+        for (let i = 1; i < diagonalV1.length; i++) {
+          let elementValue = diagonalV1[i];
+          let elementValueIndex = i;
+          let newElementValueIndex;
+
+          for (let j = 0; j < elementValueIndex; j++) {
+            if (elementValue > diagonalV1[j]) {
+              newElementValueIndex = j;
+              break;
+            }
+          }
+
+          if (newElementValueIndex == undefined) {
+           newElementValueIndex = elementValueIndex;
+          }
+
+          for (let j = elementValueIndex; j > newElementValueIndex; j--) {
+            diagonalV1[j] = diagonalV1[j-1];
+          }
+
+          diagonalV1[newElementValueIndex] = elementValue;
+        }
+
+        //ранжируем элементы главной диагонали матрицы v2 по убыванию
+        for (let i = 1; i < diagonalV2.length; i++) {
+          let elementValue = diagonalV2[i];
+          let elementValueIndex = i;
+          let newElementValueIndex;
+
+          for (let j = 0; j < elementValueIndex; j++) {
+            if (elementValue > diagonalV2[j]) {
+              newElementValueIndex = j;
+              break;
+            }
+          }
+
+          if (newElementValueIndex == undefined) {
+            newElementValueIndex = elementValueIndex;
+          }
+
+          for (let j = elementValueIndex; j > newElementValueIndex; j--) {
+            diagonalV2[j] = diagonalV2[j-1];
+          }
+
+          diagonalV2[newElementValueIndex] = elementValue;
+        }
+      
+        // копируем элементы массива v1 в массив v3 и вставляем 
+        // проранжированные элементы главных диагоналей в массив
+        for (let i = 0; i < v1.length; i++) {
+          v3[i] = [];
+          for (let j = 0; j < v1[i].length; j++) {
+            v3[i][j] = v1[i][j];
+            if (j == i) v3[i][j] = diagonalV1[j];
+          }
+        }
+
+        // копируем элементы массива v2 в массив v4 и вставляем 
+        // проранжированные элементы главных диагоналей в массив
+        for (let i = 0; i < v2.length; i++) {
+          v4[i] = [];
+          for (let j = 0; j < v2[i].length; j++) {
+            v4[i][j] = v2[i][j];
+            if (j == i) v4[i][j] = diagonalV2[j];
+          }
+        }
+
+        
+        //считаем сумму каждого столбца матрицы v1
+        let sumСolumnsV1 = [];
+        let sumСolumns = 0;
+    
+        for (let i = 0; i < v1.length; i++) {      
+          for (let j = 0; j < v1[i].length; j++) {
+            sumСolumns += v1[j][i];    
+          } 
+          sumСolumnsV1.push(sumСolumns);
+          sumСolumns = 0;            
+        }
+
+        
+        //считаем произведение каждого столбца матрицы v2
+        let productСolumnsV1 = [];
+        let productСolumns = 1;
+
+        for (let i = 0; i < v2.length; i++) {      
+          for (let j = 0; j < v2[i].length; j++) {
+            productСolumns *= v2[j][i];    
+          } 
+          productСolumnsV1.push(productСolumns);
+          productСolumns = 1;            
+        }
+
+        
+        //вычитаем из каждого элемента каждой строки матрицы v3 сумму
+        //элементов соответствующего столбца матрицы v1
+        for (let i = 0; i < v3.length; i++) {
+          v5[i] = [];
+          for (let j = 0; j < v3[i].length; j++) {
+            v5[i][j] = (v3[i][j] - sumСolumnsV1[i]);
+          }
+        }        
+
+        //складываем каждый элемент каждого столбца матрицы v4 с произведением
+        //элементов соответствующего столбца матрицы v2
+        for (let i = 0; i < v4.length; i++) {
+          v6[i] = [];
+          for (let j = 0; j < v4[i].length; j++) {
+            v6[i][j] = (v4[i][j] + productСolumnsV1[j]);
+          }
+        }
+
+        console.log("Матрица v5");
+        console.log(v5);
+        console.log("Матрица v6");
+        console.log(v6);
+      }
+       </script>
+   </body>
+</html>
