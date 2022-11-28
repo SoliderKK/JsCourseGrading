@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DemoDay 1</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <script>
+            'use strict'
+
+            /*Даны две числовые матрицы V1(M, N) и V2(M, L).
+            Получить матрицу V3 из матрицы V1, расположив все элементы матрицы V1 в порядке убывания (построчно слева направо).
+            Получить результирующую матрицу W суммированием элементов каждой строки матрицы V3 с алгебраической суммой элементов соответствующей строки матрицы V2.
+            Напечатать матрицы V3 и W.*/
+
+            const M = +prompt('Введите количество строк матриц: ');
+            const N = +prompt('Введите количество столбцов 1-ой матрицы: ');
+            const L = +prompt('Введите количество столбцов 2-ой матрицы: ');
+            
+            var V1 = new Array(M); // создаем пустые массивы длины 'M'
+            var V2 = new Array(M);
+            
+            for (var i = 0; i < M; i++) {
+                V1[i] = new Array(N); // делаем каждый элемент массивом
+                V2[i] = new Array(L); // дважды
+                for (let j = 0; j < N; j++) V1[i][j] = Math.floor(Math.random()*90 + 10); //рандомные числа
+                for (let j = 0; j < L; j++) V2[i][j] = Math.floor(Math.random()*90 + 10);
+            };
+
+            var V3 = new Array(V1);
+            
+            function sortEggsInNest(a, b) {
+                if (a > b) return -1
+                else if (b > a) return 1
+                else return 0;
+            };
+
+            V3.sort(sortEggsInNest);
+
+            document.write(V3);
+            console.log(V3);
+        </script>
+    </body>
+</html>
